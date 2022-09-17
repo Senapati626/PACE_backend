@@ -85,15 +85,15 @@ app.post("/send_mail_admin",cors(),async(req,res)=>{
     }
     today = yyyy+'-'+mm+'-'+dd;
     let {given_name,surname,email,contact_no,title_of_assignment,assignment_description,deadline} = req.body
-    mysqlConnection.query('INSERT INTO orders (clientName,clientEmail,clientPhone,issueDate,deadlineDate,orderTitle,orderDescription) VALUES(?,?,?,?,?,?,?)',[given_name+' '+surname,email,contact_no,today,deadline,title_of_assignment,assignment_description],(err,rows,fields)=>{
-        if(!err){
-            orderId.push(rows.insertId);
-            res.send("order added")
-        }
-        else{
-            res.send("Cannot book order")
-        }
-    })
+    // mysqlConnection.query('INSERT INTO orders (clientName,clientEmail,clientPhone,issueDate,deadlineDate,orderTitle,orderDescription) VALUES(?,?,?,?,?,?,?)',[given_name+' '+surname,email,contact_no,today,deadline,title_of_assignment,assignment_description],(err,rows,fields)=>{
+    //     if(!err){
+    //         orderId.push(rows.insertId);
+    //         res.send("order added")
+    //     }
+    //     else{
+    //         res.send("Cannot book order")
+    //     }
+    // })
     const transport = nodemailer.createTransport({
         service: 'gmail',
         host: process.env.MAIL_HOST,
@@ -131,7 +131,7 @@ app.post("/send_mail_admin",cors(),async(req,res)=>{
             console.log('error: ', err)
         }
         else{
-            console.log('succesfully sent mail to addmin')
+            res.send("success")
         }
     })
 })
